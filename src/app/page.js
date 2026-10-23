@@ -1,8 +1,5 @@
+import PreparationDashboard from "@/components/preparation-dashboard";
 
-const Home = () => {
-  return (
-    <div>Home</div>
-  )
+export default function HomePage() {
+  return <PreparationDashboard />;
 }
-
-export default Home

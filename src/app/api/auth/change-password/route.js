@@ -4,6 +4,7 @@ import {
   handleAuthError,
   readJsonBody,
 } from "@/lib/auth";
+import { clearPasswordResetData } from "@/lib/password-reset";
 import UserModel from "@/models/user.model";
 import { NextResponse } from "next/server";
 
@@ -39,6 +40,7 @@ export async function POST(request) {
     passwordUser.password = body.newPassword;
     passwordUser.authVersion = (passwordUser.authVersion || 0) + 1;
     passwordUser.refreshTokenHash = null;
+    clearPasswordResetData(passwordUser);
     await passwordUser.save();
 
     const response = NextResponse.json({
