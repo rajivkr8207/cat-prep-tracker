@@ -15,7 +15,7 @@ export async function GET(request) {
     }
 
     await connectDB();
-    const preparations = await PreparationTracker.find().sort({
+    const preparations = await PreparationTracker.find({ user: user._id }).sort({
       date: 1,
       createdAt: 1,
     });
@@ -44,7 +44,10 @@ export async function POST(request) {
     }
 
     await connectDB();
-    const preparation = await PreparationTracker.create(payload);
+    const preparation = await PreparationTracker.create({
+      ...payload,
+      user: user._id,
+    });
 
     return Response.json({ preparation }, { status: 201 });
   } catch (error) {

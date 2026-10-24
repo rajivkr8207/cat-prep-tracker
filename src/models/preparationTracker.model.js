@@ -2,6 +2,12 @@ import mongoose, { Schema } from "mongoose";
 
 const preparationTrackerSchema = new Schema(
   {
+    user:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'User is required'],
+      index: true,
+    },
     title: {
       type: String,
       required: true,
@@ -70,20 +76,20 @@ const preparationTrackerSchema = new Schema(
 
     priority: {
       type: String,
-      enum: ["Must do", "High", "Medium", "Low"],
+      enum: ["Must do", "Shoud do", "Bonus", "High", "Medium", "Low"],
       required: true,
       default: "Medium",
     },
 
     section: {
       type: String,
-      enum: ["Quant", "VARC", "DILR"],
+      enum: ["Quant", "VARC", "DILR",  "Revision", "Mock_test", "Other"],
       required: true,
     },
 
     status: {
       type: String,
-      enum: ["Pending", "In Progress", "Done"],
+      enum: ["Pending","Not_Started", "In Progress", "Done", "Not_Done", "Skipped", "Rescheduled"],
       required: true,
       default: "Pending",
     },

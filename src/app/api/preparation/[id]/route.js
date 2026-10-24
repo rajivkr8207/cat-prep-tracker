@@ -32,7 +32,10 @@ export async function GET(request, { params }) {
     }
 
     await connectDB();
-    const preparation = await PreparationTracker.findById(id);
+    const preparation = await PreparationTracker.findOne({
+      _id: id,
+      user: user._id,
+    });
     if (!preparation) {
       return Response.json({ error: "Preparation not found" }, { status: 404 });
     }
@@ -83,7 +86,10 @@ async function updatePreparation(request, params, replace) {
     }
 
     await connectDB();
-    const preparation = await PreparationTracker.findById(id);
+    const preparation = await PreparationTracker.findOne({
+      _id: id,
+      user: user._id,
+    });
     if (!preparation) {
       return Response.json({ error: "Preparation not found" }, { status: 404 });
     }
@@ -125,7 +131,10 @@ export async function DELETE(request, { params }) {
     }
 
     await connectDB();
-    const preparation = await PreparationTracker.findByIdAndDelete(id);
+    const preparation = await PreparationTracker.findOneAndDelete({
+      _id: id,
+      user: user._id,
+    });
     if (!preparation) {
       return Response.json({ error: "Preparation not found" }, { status: 404 });
     }
