@@ -2,6 +2,11 @@
 
 import { useForm } from "react-hook-form";
 import { ArrowRight } from "lucide-react";
+import {
+  PREPARATION_PRIORITIES,
+  PREPARATION_SECTIONS,
+  PREPARATION_STATUSES,
+} from "@/constants/PREPARATIONS";
 import { dateString, PRIORITIES, SECTIONS, STATUSES, timeToDisplay, timeToInput } from "@/lib/preparation-ui";
 
 function getDefaultValues(task) {
@@ -16,9 +21,9 @@ function getDefaultValues(task) {
       correct: 0,
       notes: "",
       planned: 0,
-      priority: "Medium",
-      section: "Quant",
-      status: "Pending",
+      priority: PREPARATION_PRIORITIES.MEDIUM,
+      section: PREPARATION_SECTIONS.QUANT,
+      status: PREPARATION_STATUSES.PENDING,
     };
   }
 
@@ -32,9 +37,9 @@ function getDefaultValues(task) {
     correct: task.correct ?? 0,
     notes: task.notes || "",
     planned: task.planned ?? 0,
-    priority: task.priority || "Medium",
-    section: task.section || "Quant",
-    status: task.status || "Pending",
+    priority: task.priority || PREPARATION_PRIORITIES.MEDIUM,
+    section: task.section || PREPARATION_SECTIONS.QUANT,
+    status: task.status || PREPARATION_STATUSES.PENDING,
   };
 }
 

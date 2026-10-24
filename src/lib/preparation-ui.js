@@ -1,6 +1,8 @@
-export const SECTIONS = ["Quant", "VARC", "DILR", "Revision", "Mock_test", "Other"];
-export const STATUSES = ["Pending","Not_Started", "In Progress", "Done", "Not_Done", "Skipped", "Rescheduled"];
-export const PRIORITIES = ["Must do", "Shoud do", "Bonus", "High", "Medium", "Low"];
+export {
+  PREPARATION_SECTION_VALUES as SECTIONS,
+  PREPARATION_STATUS_VALUES as STATUSES,
+  PREPARATION_PRIORITY_VALUES as PRIORITIES,
+} from "@/constants/PREPARATIONS";
 
 export function dateString(date) {
   const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);

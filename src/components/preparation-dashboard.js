@@ -23,6 +23,7 @@ import {
 import StudyPlan from "@/features/preparation/components/study-plan";
 import Dialog from "@/components/ui/dialog";
 import { requestJson } from "@/lib/api-client";
+import { PREPARATION_STATUSES } from "@/constants/PREPARATIONS";
 import { SECTIONS, dateString, timeToMinutes } from "@/lib/preparation-ui";
 
 function subscribeToLocalDate() {
@@ -48,7 +49,10 @@ function dailyLabel(date) {
 function getStreak(preparations, today) {
   const activeDays = new Set(
     preparations
-      .filter((task) => task.actual > 0 || task.status === "Done")
+      .filter(
+        (task) =>
+          task.actual > 0 || task.status === PREPARATION_STATUSES.DONE,
+      )
       .map((task) => task.date),
   );
   let cursor = new Date(`${today}T12:00:00`);
@@ -217,14 +221,21 @@ export default function PreparationDashboard() {
   }
 
   async function toggleTaskStatus(task) {
-    const status = task.status === "Done" ? "Pending" : "Done";
+    const status =
+      task.status === PREPARATION_STATUSES.DONE
+        ? PREPARATION_STATUSES.PENDING
+        : PREPARATION_STATUSES.DONE;
     try {
       const result = await requestJson(`/api/preparation/${task._id}`, {
         method: "PATCH",
         body: JSON.stringify({ status }),
       });
       setPreparations((current) => current.map((item) => item._id === task._id ? result.preparation : item));
-      setNotice(status === "Done" ? "Session marked complete. Nice work." : "Session moved back to your plan.");
+      setNotice(
+        status === PREPARATION_STATUSES.DONE
+          ? "Session marked complete. Nice work."
+          : "Session moved back to your plan.",
+      );
     } catch (error) {
       setPageError(error.message);
     }

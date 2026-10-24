@@ -1,4 +1,11 @@
 import mongoose, { Schema } from "mongoose";
+import {
+  PREPARATION_PRIORITIES,
+  PREPARATION_PRIORITY_VALUES,
+  PREPARATION_SECTION_VALUES,
+  PREPARATION_STATUSES,
+  PREPARATION_STATUS_VALUES,
+} from "@/constants/PREPARATIONS";
 
 const preparationTrackerSchema = new Schema(
   {
@@ -76,22 +83,22 @@ const preparationTrackerSchema = new Schema(
 
     priority: {
       type: String,
-      enum: ["Must do", "Shoud do", "Bonus", "High", "Medium", "Low"],
+      enum: PREPARATION_PRIORITY_VALUES,
       required: true,
-      default: "Medium",
+      default: PREPARATION_PRIORITIES.MEDIUM,
     },
 
     section: {
       type: String,
-      enum: ["Quant", "VARC", "DILR",  "Revision", "Mock_test", "Other"],
+      enum: PREPARATION_SECTION_VALUES,
       required: true,
     },
 
     status: {
       type: String,
-      enum: ["Pending","Not_Started", "In Progress", "Done", "Not_Done", "Skipped", "Rescheduled"],
+      enum: PREPARATION_STATUS_VALUES,
       required: true,
-      default: "Pending",
+      default: PREPARATION_STATUSES.PENDING,
     },
   },
   {
