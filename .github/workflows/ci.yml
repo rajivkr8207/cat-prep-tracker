@@ -28,19 +28,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint
+        run: npm run lint
+
       - name: Build Production
         run: npm run build
         env:
-            MONGO_URI: ${{ secrets.MONGO_URI}}
-            JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET}}
-            JWT_ACCESS_EXPIRES_IN: ${{ secrets.JWT_ACCESS_EXPIRES_IN}}
-            JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET}}
-            JWT_REFRESH_EXPIRES_IN: ${{ secrets.JWT_REFRESH_EXPIRES_IN}}
-            NODE_ENV: ${{ secrets.NODE_ENV}}
-            STTP_HOST: ${{ secrets.STTP_HOST}}
-            SMTP_PORT: ${{ secrets.SMTP_PORT}}
-            STTP_USER: ${{ secrets.STTP_USER}}
-            STTP_PASS: ${{ secrets.STTP_PASS}}
+          MONGO_URI: mongodb://127.0.0.1:27017/cat_exam_tracker_ci
+          JWT_ACCESS_SECRET: ci-only-access-secret-placeholder
+          JWT_ACCESS_EXPIRES_IN: 15m
+          JWT_REFRESH_SECRET: ci-only-refresh-secret-placeholder
+          JWT_REFRESH_EXPIRES_IN: 7d
+          NODE_ENV: production
 
   docker-build:
     name: Docker Build Check
@@ -51,4 +50,4 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build Docker Image
-        run: docker build -t chatverse:latest .
+        run: docker build -t cat-exam-tracker:ci .
