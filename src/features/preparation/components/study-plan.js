@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import IconButton from "@/components/ui/icon-button";
 import { SECTIONS, STATUSES } from "@/lib/preparation-ui";
-import { PREPARATION_STATUSES } from "@/constants/PREPARATIONS";
+import { TASK_STATUSES } from "@/constants/TASK";
 
 export default function StudyPlan({
   activeDate,
@@ -100,15 +100,15 @@ export default function StudyPlan({
       ) : visibleTasks.length ? (
         <div className="task-list">
           {visibleTasks.map((task) => (
-            <article className={`task-row${task.status === PREPARATION_STATUSES.DONE ? " task-done" : ""}`} key={task._id}>
+            <article className={`task-row${task.status === TASK_STATUSES.DONE ? " task-done" : ""}`} key={task._id}>
               <button
-                aria-label={task.status === PREPARATION_STATUSES.DONE ? `Mark ${task.title} as pending` : `Mark ${task.title} as done`}
-                aria-pressed={task.status === PREPARATION_STATUSES.DONE}
-                className={`task-check${task.status === PREPARATION_STATUSES.DONE ? " checked" : ""}`}
+                aria-label={task.status === TASK_STATUSES.DONE ? `Mark ${task.title} as pending` : `Mark ${task.title} as done`}
+                aria-pressed={task.status === TASK_STATUSES.DONE}
+                className={`task-check${task.status === TASK_STATUSES.DONE ? " checked" : ""}`}
                 onClick={() => onToggleTaskStatus(task)}
                 type="button"
               >
-                {task.status === PREPARATION_STATUSES.DONE ? <Check size={15} /> : null}
+                {task.status === TASK_STATUSES.DONE ? <Check size={15} /> : null}
               </button>
               <div className="task-main">
                 <div className="task-title-line">

@@ -1,8 +1,8 @@
 export {
-  PREPARATION_SECTION_VALUES as SECTIONS,
-  PREPARATION_STATUS_VALUES as STATUSES,
-  PREPARATION_PRIORITY_VALUES as PRIORITIES,
-} from "@/constants/PREPARATIONS";
+  TASK_SECTION_VALUES as SECTIONS,
+  TASK_STATUS_VALUES as STATUSES,
+  TASK_PRIORITY_VALUES as PRIORITIES,
+} from "@/constants/TASK";
 
 export function dateString(date) {
   const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);

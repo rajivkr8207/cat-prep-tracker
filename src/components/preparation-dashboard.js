@@ -23,7 +23,7 @@ import {
 import StudyPlan from "@/features/preparation/components/study-plan";
 import Dialog from "@/components/ui/dialog";
 import { requestJson } from "@/lib/api-client";
-import { PREPARATION_STATUSES } from "@/constants/PREPARATIONS";
+import { TASK_STATUSES } from "@/constants/TASK";
 import { SECTIONS, dateString, timeToMinutes } from "@/lib/preparation-ui";
 
 function subscribeToLocalDate() {
@@ -51,7 +51,7 @@ function getStreak(preparations, today) {
     preparations
       .filter(
         (task) =>
-          task.actual > 0 || task.status === PREPARATION_STATUSES.DONE,
+          task.actual > 0 || task.status === TASK_STATUSES.DONE,
       )
       .map((task) => task.date),
   );
@@ -222,9 +222,9 @@ export default function PreparationDashboard() {
 
   async function toggleTaskStatus(task) {
     const status =
-      task.status === PREPARATION_STATUSES.DONE
-        ? PREPARATION_STATUSES.PENDING
-        : PREPARATION_STATUSES.DONE;
+      task.status === TASK_STATUSES.DONE
+        ? TASK_STATUSES.PENDING
+        : TASK_STATUSES.DONE;
     try {
       const result = await requestJson(`/api/preparation/${task._id}`, {
         method: "PATCH",
@@ -232,7 +232,7 @@ export default function PreparationDashboard() {
       });
       setPreparations((current) => current.map((item) => item._id === task._id ? result.preparation : item));
       setNotice(
-        status === PREPARATION_STATUSES.DONE
+        status === TASK_STATUSES.DONE
           ? "Session marked complete. Nice work."
           : "Session moved back to your plan.",
       );
